@@ -113,22 +113,22 @@ export const OpportunityMatch: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundColor: '#f5f7fa' }}>
       {/* Header */}
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-white mb-2">
+        <h1 className="text-4xl font-bold mb-2" style={{ color: '#5b55f7' }}>
           EC-AI
         </h1>
-        <p className="text-gray-300 text-lg">
+        <p className="text-lg" style={{ color: '#5b55f7' }}>
           Discover Your Perfect Extracurricular Match
         </p>
-        <p className="text-gray-400 text-sm mt-2">
+        <p className="text-sm mt-2" style={{ color: '#5b55f7' }}>
           Saved: {savedOpportunities.length} opportunities
         </p>
       </div>
 
       {/* Card Stack Area */}
-      <div className="relative w-80 h-96 mb-8">
+      <div className="relative w-96 h-[500px] mb-8">
         {currentCards.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
             <GraduationCap className="w-16 h-16 text-gray-400 mb-4" />
@@ -185,7 +185,7 @@ export const OpportunityMatch: React.FC = () => {
       </div>
 
       {/* Instructions */}
-      <div className="mt-8 text-center text-gray-400 text-sm max-w-md">
+      <div className="mt-8 text-center text-sm max-w-md" style={{ color: '#5b55f7' }}>
         <p>Click and drag cards left or right to pass or save opportunities.</p>
         <p className="mt-1">Or use the buttons below to make your choice.</p>
       </div>

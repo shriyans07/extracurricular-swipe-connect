@@ -79,7 +79,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
   return (
     <div
       ref={cardRef}
-      className="swipe-card absolute w-80 h-96 select-none"
+      className="swipe-card absolute w-96 h-[500px] select-none"
       style={{
         transform: `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${rotation}deg)`,
         opacity,
@@ -140,15 +140,15 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-4">
-          {data.tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
+        <div className="flex flex-wrap gap-1 mt-4">
+          {data.tags.slice(0, 4).map((tag, index) => (
+            <Badge key={index} variant="outline" className="text-[10px] px-2 py-0.5">
               {tag}
             </Badge>
           ))}
-          {data.tags.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{data.tags.length - 3} more
+          {data.tags.length > 4 && (
+            <Badge variant="outline" className="text-[10px] px-2 py-0.5">
+              +{data.tags.length - 4}
             </Badge>
           )}
         </div>
