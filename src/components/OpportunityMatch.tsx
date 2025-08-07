@@ -116,13 +116,13 @@ export const OpportunityMatch: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundColor: '#f5f7fa' }}>
       {/* Header */}
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold mb-2" style={{ color: '#5b55f7' }}>
+        <h1 className="text-4xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
           EC-AI
         </h1>
-        <p className="text-lg" style={{ color: '#5b55f7' }}>
+        <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
           Discover Your Perfect Extracurricular Match
         </p>
-        <p className="text-sm mt-2" style={{ color: '#5b55f7' }}>
+        <p className="text-sm font-poppins font-medium mt-2" style={{ color: '#5b55f7' }}>
           Saved: {savedOpportunities.length} opportunities
         </p>
       </div>
@@ -182,12 +182,6 @@ export const OpportunityMatch: React.FC = () => {
         >
           <Heart className="w-6 h-6" />
         </Button>
-      </div>
-
-      {/* Instructions */}
-      <div className="mt-8 text-center text-sm max-w-md" style={{ color: '#5b55f7' }}>
-        <p>Click and drag cards left or right to pass or save opportunities.</p>
-        <p className="mt-1">Or use the buttons below to make your choice.</p>
       </div>
     </div>
   );

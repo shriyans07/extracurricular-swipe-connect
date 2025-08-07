@@ -107,33 +107,33 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
         {/* Header */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <Badge variant="secondary" className="bg-purple-100 text-purple-700">
+            <Badge variant="secondary" className="bg-purple-100 text-purple-700 font-poppins font-medium">
               {data.category}
             </Badge>
-            <span className="text-sm text-gray-500">{data.deadline}</span>
+            <span className="text-sm text-gray-500 font-poppins font-medium">{data.deadline}</span>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-1">{data.title}</h2>
-          <p className="text-gray-600 font-medium">{data.organization}</p>
+          <h2 className="text-xl font-poppins font-bold text-gray-900 mb-1">{data.title}</h2>
+          <p className="text-gray-600 font-poppins font-semibold">{data.organization}</p>
         </div>
 
         {/* Description */}
-        <p className="text-gray-700 text-sm leading-relaxed mb-4 flex-1">
+        <p className="text-gray-700 text-sm font-poppins font-normal leading-relaxed mb-4 flex-1">
           {data.description}
         </p>
 
         {/* Details */}
         <div className="space-y-3">
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 font-poppins font-medium">
             <MapPin className="w-4 h-4 mr-2 text-gray-400" />
             {data.location}
           </div>
           
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 font-poppins font-medium">
             <Clock className="w-4 h-4 mr-2 text-gray-400" />
             {data.timeCommitment}
           </div>
           
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 font-poppins font-medium">
             <Users className="w-4 h-4 mr-2 text-gray-400" />
             {data.participants} participants
           </div>
@@ -142,12 +142,21 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
         {/* Tags */}
         <div className="flex flex-wrap gap-1 mt-4">
           {data.tags.slice(0, 4).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-[10px] px-2 py-0.5">
+            <Badge 
+              key={index} 
+              variant="outline" 
+              className="text-[10px] px-2 py-0.5 font-poppins font-medium"
+              style={{ color: '#5b55f7', borderColor: '#5b55f7' }}
+            >
               {tag}
             </Badge>
           ))}
           {data.tags.length > 4 && (
-            <Badge variant="outline" className="text-[10px] px-2 py-0.5">
+            <Badge 
+              variant="outline" 
+              className="text-[10px] px-2 py-0.5 font-poppins font-medium"
+              style={{ color: '#5b55f7', borderColor: '#5b55f7' }}
+            >
               +{data.tags.length - 4}
             </Badge>
           )}
