@@ -6,9 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Edit2, Trash2, Bot, X } from 'lucide-react';
+import { Edit2, Trash2, Bot, X, Upload } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import Navigation from '@/components/Navigation';
 
 // Sample data
 const sampleActivities = [
@@ -51,6 +53,8 @@ const TrackActivities = () => {
   const [selectedActivity, setSelectedActivity] = useState<any>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showLogsModal, setShowLogsModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [activityToDelete, setActivityToDelete] = useState<string | null>(null);
   const { toast } = useToast();
 
   const filteredAndSortedActivities = activities
@@ -71,11 +75,20 @@ const TrackActivities = () => {
     });
 
   const handleDelete = (id: string) => {
-    setActivities(activities.filter(activity => activity.id !== id));
-    toast({
-      title: "Activity Deleted",
-      description: "The activity has been removed from your list.",
-    });
+    setActivityToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (activityToDelete) {
+      setActivities(activities.filter(activity => activity.id !== activityToDelete));
+      toast({
+        title: "Activity Deleted",
+        description: "The activity has been removed from your list.",
+      });
+      setActivityToDelete(null);
+    }
+    setShowDeleteModal(false);
   };
 
   const sampleLogs = [
@@ -86,20 +99,7 @@ const TrackActivities = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
-      {/* Navigation */}
-      <div className="border-b bg-white p-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
-            EC-AI
-          </Link>
-          <div className="flex space-x-4">
-            <Link to="/" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Opportunities</Link>
-            <Link to="/track-activities" className="text-sm font-poppins font-bold" style={{ color: '#5b55f7' }}>Track Activities</Link>
-            <Link to="/saved-opportunities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Saved</Link>
-            <Link to="/profile" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Profile</Link>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-6xl mx-auto p-6">
         {/* Header */}
@@ -128,19 +128,6 @@ const TrackActivities = () => {
             </Select>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-4">
-            <Link to="/add-activity">
-              <Button className="font-poppins font-semibold" style={{ backgroundColor: '#5b55f7' }}>
-                Add New Activity
-              </Button>
-            </Link>
-            <Link to="/log-hours">
-              <Button variant="outline" className="font-poppins font-semibold" style={{ color: '#5b55f7', borderColor: '#5b55f7' }}>
-                Log Hours
-              </Button>
-            </Link>
-          </div>
         </div>
 
         {/* Activities Grid */}
@@ -198,16 +185,112 @@ const TrackActivities = () => {
               <DialogTitle className="font-poppins font-bold">Edit Activity</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <Input placeholder="Activity Name" defaultValue={selectedActivity?.name} className="font-poppins" />
-              <Input placeholder="Roles" defaultValue={selectedActivity?.roles} className="font-poppins" />
-              <Textarea placeholder="Description" defaultValue={selectedActivity?.description} className="font-poppins" />
-              <div className="flex gap-2">
-                <Input placeholder="Hours/Week" type="number" defaultValue={selectedActivity?.hoursPerWeek} className="font-poppins" />
-                <Input placeholder="Weeks/Year" type="number" defaultValue={selectedActivity?.weeksPerYear} className="font-poppins" />
+              <div>
+                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  Current activity name: {selectedActivity?.name}
+                </label>
+                <Input placeholder="Activity Name" defaultValue={selectedActivity?.name} className="font-poppins" />
               </div>
+              
+              <div>
+                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  Current activity type: {selectedActivity?.type}
+                </label>
+                <Select defaultValue={selectedActivity?.type}>
+                  <SelectTrigger className="font-poppins">
+                    <SelectValue placeholder="Select activity type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Academic">Academic</SelectItem>
+                    <SelectItem value="Business">Business</SelectItem>
+                    <SelectItem value="Athletics-Jv-Varsity">Athletics-Jv-Varsity</SelectItem>
+                    <SelectItem value="Community Service">Community Service</SelectItem>
+                    <SelectItem value="Arts">Arts</SelectItem>
+                    <SelectItem value="Leadership">Leadership</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  Current roles: {selectedActivity?.roles}
+                </label>
+                <Input placeholder="Roles" defaultValue={selectedActivity?.roles} className="font-poppins" />
+              </div>
+
+              <div>
+                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  Current grade levels: {selectedActivity?.grades?.join(', ')}
+                </label>
+                <div className="grid grid-cols-4 gap-2">
+                  {['9', '10', '11', '12'].map((grade) => (
+                    <div key={grade} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`grade-${grade}`} 
+                        defaultChecked={selectedActivity?.grades?.includes(grade)} 
+                      />
+                      <label htmlFor={`grade-${grade}`} className="text-sm font-poppins font-medium">
+                        {grade}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  Current description: {selectedActivity?.description?.substring(0, 50)}...
+                </label>
+                <Textarea placeholder="Description" defaultValue={selectedActivity?.description} className="font-poppins" />
+              </div>
+
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                    Current hours/week: {selectedActivity?.hoursPerWeek}
+                  </label>
+                  <Input placeholder="Hours/Week" type="number" defaultValue={selectedActivity?.hoursPerWeek} className="font-poppins" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                    Current weeks/year: {selectedActivity?.weeksPerYear}
+                  </label>
+                  <Input placeholder="Weeks/Year" type="number" defaultValue={selectedActivity?.weeksPerYear} className="font-poppins" />
+                </div>
+              </div>
+
               <Button className="w-full font-poppins font-semibold" style={{ backgroundColor: '#5b55f7' }}>
                 Save Changes
               </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Confirmation Modal */}
+        <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="font-poppins font-bold">Confirm Deletion</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="font-poppins font-normal text-gray-700">
+                Are you sure you want to delete this activity? This action cannot be undone.
+              </p>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  className="flex-1 font-poppins font-semibold"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  className="flex-1 font-poppins font-semibold bg-red-500 hover:bg-red-600"
+                  onClick={confirmDelete}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>

@@ -5,13 +5,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Upload, Download, FileText, Settings, HelpCircle, MessageSquare, Shield, FileText as Terms, LogOut, Trash2 } from 'lucide-react';
+import { Upload, Download, FileText, Settings, HelpCircle, MessageSquare, Shield, FileText as Terms, LogOut, Trash2, Camera } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import Navigation from '@/components/Navigation';
 
 const Profile = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
   const { toast } = useToast();
 
   // Sample user data
@@ -75,31 +77,26 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
-      {/* Navigation */}
-      <div className="border-b bg-white p-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
-            EC-AI
-          </Link>
-          <div className="flex space-x-4">
-            <Link to="/" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Opportunities</Link>
-            <Link to="/track-activities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Track Activities</Link>
-            <Link to="/saved-opportunities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Saved</Link>
-            <Link to="/profile" className="text-sm font-poppins font-bold" style={{ color: '#5b55f7' }}>Profile</Link>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-4xl mx-auto p-6">
         {/* Profile Header */}
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-4 relative">
             <Avatar className="w-24 h-24">
               <AvatarImage src={userData.avatar} alt="Profile" />
               <AvatarFallback className="text-2xl font-poppins font-bold" style={{ backgroundColor: '#5b55f7', color: 'white' }}>
                 {userData.name.split(' ').map(n => n[0]).join('')}
               </AvatarFallback>
             </Avatar>
+            <Button
+              size="sm"
+              className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0"
+              style={{ backgroundColor: '#5b55f7' }}
+              onClick={() => setShowImageModal(true)}
+            >
+              <Camera className="w-4 h-4" />
+            </Button>
           </div>
           <h1 className="text-3xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
             {userData.name}
@@ -233,6 +230,16 @@ const Profile = () => {
               <DialogTitle className="font-poppins font-bold">Update User Data</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
+              <div className="flex justify-center mb-4">
+                <Button
+                  variant="outline"
+                  className="font-poppins font-semibold"
+                  onClick={() => setShowImageModal(true)}
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Change Profile Picture
+                </Button>
+              </div>
               <Input placeholder="Full Name" defaultValue={userData.name} className="font-poppins" />
               <Input placeholder="Email" defaultValue={userData.email} className="font-poppins" />
               <Input placeholder="School/University" className="font-poppins" />
@@ -268,6 +275,39 @@ const Profile = () => {
               >
                 Submit Feedback
               </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Image Upload Modal */}
+        <Dialog open={showImageModal} onOpenChange={setShowImageModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="font-poppins font-bold">Change Profile Picture</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <p className="font-poppins font-medium text-gray-600 mb-2">
+                  Drop your image here or click to browse
+                </p>
+                <p className="font-poppins font-normal text-sm text-gray-500">
+                  Supports JPG, PNG files up to 5MB
+                </p>
+                <Button
+                  variant="outline"
+                  className="mt-4 font-poppins font-semibold"
+                  onClick={() => {
+                    toast({
+                      title: "Image Upload",
+                      description: "Image upload functionality will be implemented soon.",
+                    });
+                    setShowImageModal(false);
+                  }}
+                >
+                  Select Image
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -12,8 +13,15 @@ const SignIn = () => {
   });
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.email || !formData.password) {
@@ -25,13 +33,21 @@ const SignIn = () => {
       return;
     }
 
-    // Simulate sign in
-    toast({
-      title: "Welcome Back!",
-      description: "You have been signed in successfully.",
-    });
+    const success = await login(formData.email, formData.password);
     
-    navigate('/');
+    if (success) {
+      toast({
+        title: "Welcome Back!",
+        description: "You have been signed in successfully.",
+      });
+      navigate('/');
+    } else {
+      toast({
+        title: "Sign In Failed",
+        description: "Invalid credentials. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

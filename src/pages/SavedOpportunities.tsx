@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Trash2, Bot, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import Navigation from '@/components/Navigation';
 
 // Sample saved opportunities data
 const sampleOpportunities = [
@@ -72,20 +73,7 @@ const SavedOpportunities = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
-      {/* Navigation */}
-      <div className="border-b bg-white p-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
-            EC-AI
-          </Link>
-          <div className="flex space-x-4">
-            <Link to="/" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Opportunities</Link>
-            <Link to="/track-activities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Track Activities</Link>
-            <Link to="/saved-opportunities" className="text-sm font-poppins font-bold" style={{ color: '#5b55f7' }}>Saved</Link>
-            <Link to="/profile" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Profile</Link>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-6xl mx-auto p-6">
         {/* Header */}
