@@ -188,7 +188,7 @@ const AddActivity = () => {
 
           <Button
             type="submit"
-            className="w-full text-lg font-poppins font-bold py-6"
+            className="w-full text-lg font-poppins font-bold py-6 text-white"
             style={{ backgroundColor: '#5b55f7' }}
           >
             Add

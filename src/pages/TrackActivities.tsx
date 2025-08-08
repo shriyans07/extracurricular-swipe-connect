@@ -180,20 +180,20 @@ const TrackActivities = () => {
 
         {/* Edit Modal */}
         <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
-          <DialogContent className="max-w-lg">
+          <DialogContent className="max-w-lg" style={{ backgroundColor: '#f5f7fa' }}>
             <DialogHeader>
-              <DialogTitle className="font-poppins font-bold">Edit Activity</DialogTitle>
+              <DialogTitle className="font-poppins font-bold text-black">Edit Activity</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                <label className="text-sm font-poppins font-medium text-black mb-1 block">
                   Current activity name: {selectedActivity?.name}
                 </label>
                 <Input placeholder="Activity Name" defaultValue={selectedActivity?.name} className="font-poppins" />
               </div>
               
               <div>
-                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                <label className="text-sm font-poppins font-medium text-black mb-1 block">
                   Current activity type: {selectedActivity?.type}
                 </label>
                 <Select defaultValue={selectedActivity?.type}>
@@ -212,14 +212,14 @@ const TrackActivities = () => {
               </div>
 
               <div>
-                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                <label className="text-sm font-poppins font-medium text-black mb-1 block">
                   Current roles: {selectedActivity?.roles}
                 </label>
                 <Input placeholder="Roles" defaultValue={selectedActivity?.roles} className="font-poppins" />
               </div>
 
               <div>
-                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                <label className="text-sm font-poppins font-medium text-black mb-1 block">
                   Current grade levels: {selectedActivity?.grades?.join(', ')}
                 </label>
                  <div className="grid grid-cols-4 gap-2">
@@ -229,7 +229,7 @@ const TrackActivities = () => {
                         id={`grade-${grade}`} 
                         defaultChecked={selectedActivity?.grades?.includes(grade)} 
                       />
-                      <label htmlFor={`grade-${grade}`} className="text-sm font-poppins font-medium">
+                      <label htmlFor={`grade-${grade}`} className="text-sm font-poppins font-medium text-black">
                         {grade}
                       </label>
                     </div>
@@ -238,7 +238,7 @@ const TrackActivities = () => {
               </div>
 
               <div>
-                <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                <label className="text-sm font-poppins font-medium text-black mb-1 block">
                   Current description: {selectedActivity?.description?.substring(0, 50)}...
                 </label>
                 <Textarea placeholder="Description" defaultValue={selectedActivity?.description} className="font-poppins" />
@@ -246,20 +246,20 @@ const TrackActivities = () => {
 
               <div className="flex gap-2">
                 <div className="flex-1">
-                  <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  <label className="text-sm font-poppins font-medium text-black mb-1 block">
                     Current hours/week: {selectedActivity?.hoursPerWeek}
                   </label>
                   <Input placeholder="Hours/Week" type="number" defaultValue={selectedActivity?.hoursPerWeek} className="font-poppins" />
                 </div>
                 <div className="flex-1">
-                  <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
+                  <label className="text-sm font-poppins font-medium text-black mb-1 block">
                     Current weeks/year: {selectedActivity?.weeksPerYear}
                   </label>
                   <Input placeholder="Weeks/Year" type="number" defaultValue={selectedActivity?.weeksPerYear} className="font-poppins" />
                 </div>
               </div>
 
-              <Button className="w-full font-poppins font-semibold" style={{ backgroundColor: '#5b55f7' }}>
+              <Button className="w-full font-poppins font-semibold text-white" style={{ backgroundColor: '#5b55f7' }}>
                 Save Changes
               </Button>
             </div>

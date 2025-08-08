@@ -95,10 +95,10 @@ const Profile = () => {
               style={{ backgroundColor: '#5b55f7' }}
               onClick={() => setShowImageModal(true)}
             >
-              <Camera className="w-4 h-4" />
+              <Camera className="w-4 h-4 text-white" />
             </Button>
           </div>
-          <h1 className="text-3xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
+          <h1 className="text-3xl font-poppins font-black mb-2 text-black">
             {userData.name}
           </h1>
           <p className="text-lg font-poppins font-medium" style={{ color: '#5b55f7' }}>
@@ -113,7 +113,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent>
             <Button 
-              className="w-full font-poppins font-bold"
+              className="w-full font-poppins font-bold text-white"
               style={{ backgroundColor: '#5b55f7' }}
               onClick={handleSubscribePremium}
             >
@@ -129,7 +129,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent>
             <Button 
-              className="w-full font-poppins font-bold"
+              className="w-full font-poppins font-bold text-white"
               style={{ backgroundColor: '#5b55f7' }}
               onClick={() => setShowUpdateModal(true)}
             >

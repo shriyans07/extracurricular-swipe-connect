@@ -146,11 +146,11 @@ const SavedOpportunities = () => {
                   {opportunity.description}
                 </p>
                 <Button 
-                  className="font-poppins font-semibold"
+                  className="font-poppins font-semibold text-white"
                   style={{ backgroundColor: '#5b55f7' }}
                   onClick={() => window.open(opportunity.applicationLink, '_blank')}
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
+                  <ExternalLink className="w-4 h-4 mr-2 text-white" />
                   Apply Here
                 </Button>
               </CardContent>
