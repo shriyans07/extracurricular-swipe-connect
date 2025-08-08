@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '@/assets/ec-ai-logo.png';
+import logoImage from '/lovable-uploads/d2975fc5-2503-4d8d-b838-d72ec2b10639.png';
 
 const Navigation = () => {
   const location = useLocation();

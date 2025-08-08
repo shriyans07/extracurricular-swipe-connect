@@ -5,7 +5,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '@/components/Navigation';
 
 const AddActivity = () => {
   const [formData, setFormData] = useState({
@@ -71,34 +72,14 @@ const AddActivity = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
-      {/* Navigation */}
-      <div className="border-b bg-white p-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
-            EC-AI
-          </Link>
-          <div className="flex space-x-4">
-            <Link to="/" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Opportunities</Link>
-            <Link to="/track-activities" className="text-sm font-poppins font-bold" style={{ color: '#5b55f7' }}>Track Activities</Link>
-            <Link to="/saved-opportunities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Saved</Link>
-            <Link to="/profile" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Profile</Link>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-2xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex gap-4 mb-6">
-            <Button className="font-poppins font-semibold" style={{ backgroundColor: '#5b55f7' }}>
-              Add New Activity
-            </Button>
-            <Link to="/log-hours">
-              <Button variant="outline" className="font-poppins font-semibold" style={{ color: '#5b55f7', borderColor: '#5b55f7' }}>
-                Log Hours
-              </Button>
-            </Link>
-          </div>
+          <h1 className="text-4xl font-poppins font-black mb-4 text-black">
+            Add New Activity
+          </h1>
         </div>
 
         {/* Form */}
