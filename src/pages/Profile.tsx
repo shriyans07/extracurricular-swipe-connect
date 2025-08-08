@@ -91,7 +91,7 @@ const Profile = () => {
             </Avatar>
             <Button
               size="sm"
-              className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0"
+              className="absolute bottom-0 right-0 rounded-full w-8 h-8 p-0"
               style={{ backgroundColor: '#5b55f7' }}
               onClick={() => setShowImageModal(true)}
             >

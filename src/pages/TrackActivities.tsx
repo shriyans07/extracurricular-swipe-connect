@@ -117,10 +117,10 @@ const TrackActivities = () => {
               className="flex-1 font-poppins"
             />
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full md:w-48 font-poppins" style={{ color: '#5b55f7' }}>
+              <SelectTrigger className="w-full md:w-48 font-poppins">
                 <SelectValue placeholder="Sort By" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <SelectItem value="alphabetical">Alphabetically</SelectItem>
                 <SelectItem value="career-field">By Career Field</SelectItem>
                 <SelectItem value="hours">By Hours per Week</SelectItem>
@@ -197,10 +197,10 @@ const TrackActivities = () => {
                   Current activity type: {selectedActivity?.type}
                 </label>
                 <Select defaultValue={selectedActivity?.type}>
-                  <SelectTrigger className="font-poppins">
+                  <SelectTrigger className="font-poppins bg-white text-black">
                     <SelectValue placeholder="Select activity type" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="Academic">Academic</SelectItem>
                     <SelectItem value="Business">Business</SelectItem>
                     <SelectItem value="Athletics-Jv-Varsity">Athletics-Jv-Varsity</SelectItem>

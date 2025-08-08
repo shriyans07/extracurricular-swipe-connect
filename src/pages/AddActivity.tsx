@@ -102,10 +102,10 @@ const AddActivity = () => {
               Activity Type <span className="text-red-500">*</span>
             </label>
             <Select value={formData.type} onValueChange={(value) => setFormData(prev => ({ ...prev, type: value }))}>
-              <SelectTrigger className="font-poppins">
+              <SelectTrigger className="font-poppins bg-white text-black">
                 <SelectValue placeholder="Select activity type" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 {activityTypes.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}

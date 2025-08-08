@@ -74,10 +74,10 @@ const LogHours = () => {
               Name of Activity <span className="text-red-500">*</span>
             </label>
             <Select value={formData.activityName} onValueChange={(value) => setFormData(prev => ({ ...prev, activityName: value }))}>
-              <SelectTrigger className="font-poppins">
+              <SelectTrigger className="font-poppins bg-white text-black">
                 <SelectValue placeholder="Select activity" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 {savedActivities.map(activity => (
                   <SelectItem key={activity} value={activity}>{activity}</SelectItem>
                 ))}
@@ -93,7 +93,7 @@ const LogHours = () => {
               type="date"
               value={formData.date}
               onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-              className="font-poppins"
+              className="font-poppins bg-white text-black"
               max={today}
               required
             />
