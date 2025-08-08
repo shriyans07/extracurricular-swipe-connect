@@ -48,6 +48,20 @@ const Navigation = () => {
             Track Activities
           </Link>
           <Link 
+            to="/add-activity" 
+            className={`text-sm font-poppins ${isActive('/add-activity') ? 'font-bold' : 'font-medium'}`} 
+            style={{ color: '#5b55f7' }}
+          >
+            Add Activity
+          </Link>
+          <Link 
+            to="/log-hours" 
+            className={`text-sm font-poppins ${isActive('/log-hours') ? 'font-bold' : 'font-medium'}`} 
+            style={{ color: '#5b55f7' }}
+          >
+            Log Hours
+          </Link>
+          <Link 
             to="/saved-opportunities" 
             className={`text-sm font-poppins ${isActive('/saved-opportunities') ? 'font-bold' : 'font-medium'}`} 
             style={{ color: '#5b55f7' }}

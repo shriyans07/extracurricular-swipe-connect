@@ -45,6 +45,8 @@ const SavedOpportunities = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOpportunity, setSelectedOpportunity] = useState<any>(null);
   const [showAIModal, setShowAIModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [opportunityToDelete, setOpportunityToDelete] = useState<string | null>(null);
   const { toast } = useToast();
 
   const filteredOpportunities = opportunities.filter(opportunity => 
@@ -53,11 +55,20 @@ const SavedOpportunities = () => {
   );
 
   const handleDelete = (id: string) => {
-    setOpportunities(opportunities.filter(opportunity => opportunity.id !== id));
-    toast({
-      title: "Opportunity Removed",
-      description: "The opportunity has been removed from your saved list.",
-    });
+    setOpportunityToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (opportunityToDelete) {
+      setOpportunities(opportunities.filter(opportunity => opportunity.id !== opportunityToDelete));
+      toast({
+        title: "Opportunity Removed",
+        description: "The opportunity has been removed from your saved list.",
+      });
+      setOpportunityToDelete(null);
+    }
+    setShowDeleteModal(false);
   };
 
   const handleAIReasons = (opportunity: any) => {
@@ -157,6 +168,35 @@ const SavedOpportunities = () => {
             </p>
           </div>
         )}
+
+        {/* Delete Confirmation Modal */}
+        <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="font-poppins font-bold">Confirm Deletion</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="font-poppins font-normal text-gray-700">
+                Are you sure you want to remove this opportunity from your saved list? This action cannot be undone.
+              </p>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  className="flex-1 font-poppins font-semibold"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  className="flex-1 font-poppins font-semibold bg-red-500 hover:bg-red-600"
+                  onClick={confirmDelete}
+                >
+                  Remove
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* AI Reasons Modal */}
         <Dialog open={showAIModal} onOpenChange={setShowAIModal}>

@@ -210,7 +210,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
 
       {/* Report Modal */}
       <Dialog open={showReportModal} onOpenChange={setShowReportModal}>
-        <DialogContent className="max-w-md" onClick={(e) => e.stopPropagation()}>
+        <DialogContent className="max-w-md z-[9999]" onClick={(e) => e.stopPropagation()}>
           <DialogHeader>
             <DialogTitle className="font-poppins font-bold">
               Report Opportunity

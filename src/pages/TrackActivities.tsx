@@ -222,8 +222,8 @@ const TrackActivities = () => {
                 <label className="text-sm font-poppins font-medium text-gray-600 mb-1 block">
                   Current grade levels: {selectedActivity?.grades?.join(', ')}
                 </label>
-                <div className="grid grid-cols-4 gap-2">
-                  {['9', '10', '11', '12'].map((grade) => (
+                 <div className="grid grid-cols-4 gap-2">
+                  {['Pre-9', '9', '10', '11', '12', 'Post-12'].map((grade) => (
                     <div key={grade} className="flex items-center space-x-2">
                       <Checkbox 
                         id={`grade-${grade}`} 

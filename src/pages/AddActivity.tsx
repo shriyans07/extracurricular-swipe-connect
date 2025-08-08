@@ -33,7 +33,7 @@ const AddActivity = () => {
     'Other'
   ];
 
-  const grades = ['9', '10', '11', '12', 'Post-12'];
+  const grades = ['Pre-9', '9', '10', '11', '12', 'Post-12'];
 
   const handleGradeChange = (grade: string, checked: boolean) => {
     if (checked) {
