@@ -4,15 +4,17 @@ import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '/lovable-uploads/d2975fc5-2503-4d8d-b838-d72ec2b10639.png';
+import logoImage from '@/assets/logo.webp';
 
 const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout, isAuthenticated } = useAuth();
   const { toast } = useToast();
+  const ACCENT = '#5b55f7';
 
-  const handleLogout = () => {
+
+    const handleLogout = () => {
     logout();
     toast({
       title: "Logged Out",
@@ -34,51 +36,62 @@ const Navigation = () => {
           <img src={logoImage} alt="EC AI" className="h-8" />
         </Link>
         <div className="flex items-center space-x-4">
-          <Link 
-            to="/" 
-            className={`text-sm font-poppins ${isActive('/') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Opportunities
-          </Link>
-          <Link 
-            to="/track-activities" 
-            className={`text-sm font-poppins ${isActive('/track-activities') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Track Activities
-          </Link>
-          <Link 
-            to="/add-activity" 
-            className={`text-sm font-poppins ${isActive('/add-activity') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Add Activity
-          </Link>
-          <Link 
-            to="/log-hours" 
-            className={`text-sm font-poppins ${isActive('/log-hours') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Log Hours
-          </Link>
-          <Link 
-            to="/saved-opportunities" 
-            className={`text-sm font-poppins ${isActive('/saved-opportunities') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Saved
-          </Link>
-          <Link 
-            to="/profile" 
-            className={`text-sm font-poppins ${isActive('/profile') ? 'font-bold text-black' : 'font-medium text-black'}`}
-          >
-            Profile
-          </Link>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleLogout}
-            className="text-sm font-poppins font-medium bg-white text-black border-black hover:bg-gray-100"
-          >
-            <LogOut className="w-4 h-4 mr-1" />
-            Logout
-          </Button>
+            <Link
+                to="/"
+                className={`text-sm font-poppins ${isActive('/') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Opportunities
+            </Link>
+            <Link
+                to="/track-activities"
+                className={`text-sm font-poppins ${isActive('/track-activities') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Track Activities
+            </Link>
+            <Link
+                to="/add-activity"
+                className={`text-sm font-poppins ${isActive('/add-activity') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Add Activity
+            </Link>
+            <Link
+                to="/log-hours"
+                className={`text-sm font-poppins ${isActive('/log-hours') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Log Hours
+            </Link>
+            <Link
+                to="/saved-opportunities"
+                className={`text-sm font-poppins ${isActive('/saved-opportunities') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Saved
+            </Link>
+            <Link
+                to="/profile"
+                className={`text-sm font-poppins ${isActive('/profile') ? 'font-bold' : 'font-medium'}`}
+                style={{ color: ACCENT }}
+            >
+                Profile
+            </Link>
+            <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="text-sm font-poppins font-medium bg-white border"
+                style={{
+                    color: ACCENT,
+                    borderColor: ACCENT
+                }}
+            >
+                <LogOut className="w-4 h-4 mr-1" />
+                Logout
+            </Button>
+
         </div>
       </div>
     </div>

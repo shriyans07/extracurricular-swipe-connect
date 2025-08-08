@@ -7,138 +7,160 @@ import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 
+const ACCENT = '#5b55f7';
+
 const LogHours = () => {
-  const [formData, setFormData] = useState({
-    activityName: '',
-    date: '',
-    hours: '',
-    milestone: ''
-  });
-  const { toast } = useToast();
-  const navigate = useNavigate();
-
-  // Sample activities (would come from your saved activities)
-  const savedActivities = [
-    'Future Business Leaders of America (FBLA)',
-    'High School Basketball Team',
-    'National Honor Society',
-    'Environmental Club',
-    'Student Government'
-  ];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.activityName || !formData.date || !formData.hours) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    toast({
-      title: "Hours Logged!",
-      description: `${formData.hours} hours logged for ${formData.activityName}.`,
+    const [formData, setFormData] = useState({
+        activityName: '',
+        date: '',
+        hours: '',
+        milestone: ''
     });
-    
-    // Reset form
-    setFormData({
-      activityName: '',
-      date: '',
-      hours: '',
-      milestone: ''
-    });
-  };
+    const { toast } = useToast();
+    const navigate = useNavigate();
 
-  // Get today's date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];
+    // Sample activities (would come from your saved activities)
+    const savedActivities = [
+        'Future Business Leaders of America (FBLA)',
+        'High School Basketball Team',
+        'National Honor Society',
+        'Environmental Club',
+        'Student Government'
+    ];
 
-  return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
-      <Navigation />
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
 
-      <div className="max-w-2xl mx-auto p-6">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-poppins font-black mb-4 text-black">
-            Log Hours
-          </h1>
+        if (!formData.activityName || !formData.date || !formData.hours) {
+            toast({
+                title: "Missing Information",
+                description: "Please fill in all required fields.",
+                variant: "destructive"
+            });
+            return;
+        }
+
+        toast({
+            title: "Hours Logged!",
+            description: `${formData.hours} hours logged for ${formData.activityName}.`,
+        });
+
+        // Reset form
+        setFormData({
+            activityName: '',
+            date: '',
+            hours: '',
+            milestone: ''
+        });
+    };
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
+    return (
+        <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
+            <Navigation />
+
+            <div className="max-w-2xl mx-auto p-6">
+                {/* Header - NOT inside overlay */}
+                <div className="mb-6">
+                    <h1 className="text-4xl font-poppins font-black text-black">
+                        Log Hours
+                    </h1>
+                </div>
+
+                {/* White overlay card for the form */}
+                <div className="bg-white rounded-xl shadow-md p-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div>
+                            <label className="text-lg font-poppins font-bold text-black mb-2 block">
+                                Name of Activity <span className="text-red-500">*</span>
+                            </label>
+                            <Select
+                                value={formData.activityName}
+                                onValueChange={(value) => setFormData(prev => ({ ...prev, activityName: value }))}
+                            >
+                                <SelectTrigger
+                                    className="font-poppins bg-white text-black
+                             focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0
+                             focus-visible:ring-[var(--accent,_#5b55f7)] focus-visible:border-[var(--accent,_#5b55f7)]"
+                                    style={{ ['--accent' as any]: ACCENT }}
+                                >
+                                    <SelectValue placeholder="Select activity" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-white text-black">
+                                    {savedActivities.map(activity => (
+                                        <SelectItem key={activity} value={activity}>{activity}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div>
+                            <label className="text-lg font-poppins font-bold text-black mb-2 block">
+                                Date of Activity <span className="text-red-500">*</span>
+                            </label>
+                            <Input
+                                type="date"
+                                value={formData.date}
+                                onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
+                                className="font-poppins bg-white text-black
+                           focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0
+                           focus-visible:ring-[var(--accent,_#5b55f7)] focus-visible:border-[var(--accent,_#5b55f7)]"
+                                style={{ ['--accent' as any]: ACCENT }}
+                                max={today}
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="text-lg font-poppins font-bold text-black mb-2 block">
+                                Hours <span className="text-red-500">*</span>
+                            </label>
+                            <Input
+                                placeholder="Enter hours"
+                                type="number"
+                                step="0.5"
+                                min="0"
+                                value={formData.hours}
+                                onChange={(e) => setFormData(prev => ({ ...prev, hours: e.target.value }))}
+                                className="font-poppins bg-white text-black
+                           focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0
+                           focus-visible:ring-[var(--accent,_#5b55f7)] focus-visible:border-[var(--accent,_#5b55f7)]"
+                                style={{ ['--accent' as any]: ACCENT }}
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="text-lg font-poppins font-bold text-black mb-2 block">
+                                Milestone
+                            </label>
+                            <Textarea
+                                placeholder="ex. FBLA Club Meeting"
+                                value={formData.milestone}
+                                onChange={(e) => setFormData(prev => ({ ...prev, milestone: e.target.value }))}
+                                className="font-poppins bg-white text-black
+                           focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0
+                           focus-visible:ring-[var(--accent,_#5b55f7)] focus-visible:border-[var(--accent,_#5b55f7)]"
+                                style={{ ['--accent' as any]: ACCENT }}
+                                rows={3}
+                            />
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full text-lg font-poppins font-bold py-6 text-white
+                         focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                            style={{ backgroundColor: ACCENT }}
+                        >
+                            Log Hours
+                        </Button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="text-lg font-poppins font-bold text-black mb-2 block">
-              Name of Activity <span className="text-red-500">*</span>
-            </label>
-            <Select value={formData.activityName} onValueChange={(value) => setFormData(prev => ({ ...prev, activityName: value }))}>
-              <SelectTrigger className="font-poppins bg-white text-black">
-                <SelectValue placeholder="Select activity" />
-              </SelectTrigger>
-              <SelectContent className="bg-white">
-                {savedActivities.map(activity => (
-                  <SelectItem key={activity} value={activity}>{activity}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="text-lg font-poppins font-bold text-black mb-2 block">
-              Date of Activity <span className="text-red-500">*</span>
-            </label>
-            <Input
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-              className="font-poppins bg-white text-black"
-              max={today}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="text-lg font-poppins font-bold text-black mb-2 block">
-              Hours <span className="text-red-500">*</span>
-            </label>
-            <Input
-              placeholder="Enter hours"
-              type="number"
-              step="0.5"
-              min="0"
-              value={formData.hours}
-              onChange={(e) => setFormData(prev => ({ ...prev, hours: e.target.value }))}
-              className="font-poppins"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="text-lg font-poppins font-bold text-black mb-2 block">
-              Milestone
-            </label>
-            <Textarea
-              placeholder="ex. FBLA Club Meeting"
-              value={formData.milestone}
-              onChange={(e) => setFormData(prev => ({ ...prev, milestone: e.target.value }))}
-              className="font-poppins"
-              rows={3}
-            />
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full text-lg font-poppins font-bold py-6 text-white"
-            style={{ backgroundColor: '#5b55f7' }}
-          >
-            Log Hours
-          </Button>
-        </form>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default LogHours;
