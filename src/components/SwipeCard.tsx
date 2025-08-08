@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Clock, MapPin, Users, GraduationCap } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Clock, MapPin, Users, GraduationCap, Flag, X } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ExtracurricularData {
   id: string;
@@ -25,7 +31,11 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportReason, setReportReason] = useState('');
+  const [reportDescription, setReportDescription] = useState('');
   const cardRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -76,6 +86,31 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
   const showLikeIndicator = dragOffset.x > 50;
   const showPassIndicator = dragOffset.x < -50;
 
+  const handleReport = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowReportModal(true);
+  };
+
+  const submitReport = () => {
+    if (!reportReason) {
+      toast({
+        title: "Please select a reason",
+        description: "You must select a reason for reporting.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "Report Submitted",
+      description: `Thank you for reporting ${data.title}. We'll review it soon.`,
+    });
+
+    setShowReportModal(false);
+    setReportReason('');
+    setReportDescription('');
+  };
+
   return (
     <div
       ref={cardRef}
@@ -110,7 +145,17 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
             <Badge variant="secondary" className="bg-purple-100 text-purple-700 font-poppins font-medium">
               {data.category}
             </Badge>
-            <span className="text-sm text-gray-500 font-poppins font-medium">{data.deadline}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-500 font-poppins font-medium">{data.deadline}</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleReport}
+                className="w-8 h-8 p-0"
+              >
+                <Flag className="w-3 h-3" />
+              </Button>
+            </div>
           </div>
           <h2 className="text-xl font-poppins font-bold text-gray-900 mb-1">{data.title}</h2>
           <p className="text-gray-600 font-poppins font-semibold">{data.organization}</p>
@@ -162,6 +207,58 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({ data, onSwipe, zIndex }) =
           )}
         </div>
       </div>
+
+      {/* Report Modal */}
+      <Dialog open={showReportModal} onOpenChange={setShowReportModal}>
+        <DialogContent className="max-w-md" onClick={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle className="font-poppins font-bold">
+              Report Opportunity
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="font-poppins font-medium text-gray-700">
+              Why are you reporting {data.title}?
+            </p>
+            
+            <RadioGroup value={reportReason} onValueChange={setReportReason}>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="scam" id="scam" />
+                <Label htmlFor="scam" className="font-poppins">Scam</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="inaccurate" id="inaccurate" />
+                <Label htmlFor="inaccurate" className="font-poppins">Inaccurate info</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="other" id="other" />
+                <Label htmlFor="other" className="font-poppins">Other</Label>
+              </div>
+            </RadioGroup>
+
+            {(reportReason === 'inaccurate' || reportReason === 'other') && (
+              <div>
+                <Label className="font-poppins font-medium">Please describe what's wrong.</Label>
+                <Textarea
+                  value={reportDescription}
+                  onChange={(e) => setReportDescription(e.target.value)}
+                  placeholder="Describe the issue..."
+                  className="font-poppins mt-2"
+                  rows={3}
+                />
+              </div>
+            )}
+
+            <Button
+              onClick={submitReport}
+              className="w-full font-poppins font-semibold"
+              style={{ backgroundColor: '#5b55f7' }}
+            >
+              Submit
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

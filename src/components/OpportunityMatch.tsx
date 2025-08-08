@@ -3,6 +3,7 @@ import { SwipeCard } from './SwipeCard';
 import { Button } from '@/components/ui/button';
 import { Heart, X, RotateCcw, GraduationCap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Link } from 'react-router-dom';
 
 // Placeholder data - this will be replaced with real database data later
 const placeholderExtracurriculars = [
@@ -113,75 +114,92 @@ export const OpportunityMatch: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundColor: '#f5f7fa' }}>
-      {/* Header */}
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
-          EC-AI
-        </h1>
-        <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
-          Discover Your Perfect Extracurricular Match
-        </p>
-        <p className="text-sm font-poppins font-medium mt-2" style={{ color: '#5b55f7' }}>
-          Saved: {savedOpportunities.length} opportunities
-        </p>
-      </div>
-
-      {/* Card Stack Area */}
-      <div className="relative w-96 h-[500px] mb-8">
-        {currentCards.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
-            <GraduationCap className="w-16 h-16 text-gray-400 mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">All Done!</h3>
-            <p className="text-gray-300 text-center mb-4 px-4">
-              You've reviewed all available opportunities.
-            </p>
-            <Button onClick={resetCards} variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Review Again
-            </Button>
+    <div className="min-h-screen" style={{ backgroundColor: '#f5f7fa' }}>
+      {/* Navigation */}
+      <div className="border-b bg-white p-4">
+        <div className="flex items-center justify-between max-w-6xl mx-auto">
+          <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
+            EC-AI
+          </Link>
+          <div className="flex space-x-4">
+            <Link to="/" className="text-sm font-poppins font-bold" style={{ color: '#5b55f7' }}>Opportunities</Link>
+            <Link to="/track-activities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Track Activities</Link>
+            <Link to="/saved-opportunities" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Saved</Link>
+            <Link to="/profile" className="text-sm font-poppins font-medium" style={{ color: '#5b55f7' }}>Profile</Link>
           </div>
-        ) : (
-          <>
-            {/* Stack Effect - Show up to 3 cards with offset */}
-            {currentCards.slice(0, 3).map((card, index) => (
-              <SwipeCard
-                key={card.id}
-                data={card}
-                onSwipe={handleSwipe}
-                zIndex={100 - index}
-              />
-            )).reverse()}
-          </>
-        )}
+        </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex items-center space-x-6">
-        <Button
-          onClick={() => handleButtonAction('pass')}
-          disabled={currentCards.length === 0}
-          className="w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 border-2 border-red-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
-        >
-          <X className="w-6 h-6" />
-        </Button>
+      <div className="flex flex-col items-center justify-center p-4 min-h-[calc(100vh-80px)]">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
+            Opportunity Match
+          </h1>
+          <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
+            Swipe RIGHT to save an opportunity, left to skip.
+          </p>
+          <p className="text-sm font-poppins font-medium mt-2" style={{ color: '#5b55f7' }}>
+            Saved: {savedOpportunities.length} opportunities
+          </p>
+        </div>
 
-        <Button
-          onClick={resetCards}
-          disabled={currentCards.length === placeholderExtracurriculars.length}
-          variant="outline"
-          className="w-12 h-12 rounded-full bg-white/10 border-white/30 text-white hover:bg-white/20"
-        >
-          <RotateCcw className="w-5 h-5" />
-        </Button>
+        {/* Card Stack Area */}
+        <div className="relative w-96 h-[500px] mb-8">
+          {currentCards.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
+              <GraduationCap className="w-16 h-16 text-gray-400 mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">All Done!</h3>
+              <p className="text-gray-300 text-center mb-4 px-4">
+                You've reviewed all available opportunities.
+              </p>
+              <Button onClick={resetCards} variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Review Again
+              </Button>
+            </div>
+          ) : (
+            <>
+              {/* Stack Effect - Show up to 3 cards with offset */}
+              {currentCards.slice(0, 3).map((card, index) => (
+                <SwipeCard
+                  key={card.id}
+                  data={card}
+                  onSwipe={handleSwipe}
+                  zIndex={100 - index}
+                />
+              )).reverse()}
+            </>
+          )}
+        </div>
 
-        <Button
-          onClick={() => handleButtonAction('like')}
-          disabled={currentCards.length === 0}
-          className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 border-2 border-green-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
-        >
-          <Heart className="w-6 h-6" />
-        </Button>
+        {/* Action Buttons */}
+        <div className="flex items-center space-x-6">
+          <Button
+            onClick={() => handleButtonAction('pass')}
+            disabled={currentCards.length === 0}
+            className="w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 border-2 border-red-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+          >
+            <X className="w-6 h-6" />
+          </Button>
+
+          <Button
+            onClick={resetCards}
+            disabled={currentCards.length === placeholderExtracurriculars.length}
+            variant="outline"
+            className="w-12 h-12 rounded-full bg-white/10 border-white/30 text-white hover:bg-white/20"
+          >
+            <RotateCcw className="w-5 h-5" />
+          </Button>
+
+          <Button
+            onClick={() => handleButtonAction('like')}
+            disabled={currentCards.length === 0}
+            className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 border-2 border-green-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+          >
+            <Heart className="w-6 h-6" />
+          </Button>
+        </div>
       </div>
     </div>
   );
