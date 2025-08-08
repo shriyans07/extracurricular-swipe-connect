@@ -104,7 +104,7 @@ const TrackActivities = () => {
       <div className="max-w-6xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-poppins font-black mb-4" style={{ color: '#5b55f7' }}>
+          <h1 className="text-4xl font-poppins font-black mb-4 text-black">
             Track Activities
           </h1>
           

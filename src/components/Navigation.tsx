@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import logoImage from '@/assets/ec-ai-logo.png';
 
 const Navigation = () => {
   const location = useLocation();
@@ -29,49 +30,43 @@ const Navigation = () => {
   return (
     <div className="border-b bg-white p-4">
       <div className="flex items-center justify-between max-w-6xl mx-auto">
-        <Link to="/" className="text-2xl font-poppins font-black" style={{ color: '#5b55f7' }}>
-          EC-AI
+        <Link to="/" className="flex items-center">
+          <img src={logoImage} alt="EC AI" className="h-8" />
         </Link>
         <div className="flex items-center space-x-4">
           <Link 
             to="/" 
-            className={`text-sm font-poppins ${isActive('/') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Opportunities
           </Link>
           <Link 
             to="/track-activities" 
-            className={`text-sm font-poppins ${isActive('/track-activities') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/track-activities') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Track Activities
           </Link>
           <Link 
             to="/add-activity" 
-            className={`text-sm font-poppins ${isActive('/add-activity') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/add-activity') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Add Activity
           </Link>
           <Link 
             to="/log-hours" 
-            className={`text-sm font-poppins ${isActive('/log-hours') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/log-hours') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Log Hours
           </Link>
           <Link 
             to="/saved-opportunities" 
-            className={`text-sm font-poppins ${isActive('/saved-opportunities') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/saved-opportunities') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Saved
           </Link>
           <Link 
             to="/profile" 
-            className={`text-sm font-poppins ${isActive('/profile') ? 'font-bold' : 'font-medium'}`} 
-            style={{ color: '#5b55f7' }}
+            className={`text-sm font-poppins ${isActive('/profile') ? 'font-bold text-black' : 'font-medium text-black'}`}
           >
             Profile
           </Link>
@@ -79,8 +74,7 @@ const Navigation = () => {
             variant="outline"
             size="sm"
             onClick={handleLogout}
-            className="text-sm font-poppins font-medium"
-            style={{ color: '#5b55f7', borderColor: '#5b55f7' }}
+            className="text-sm font-poppins font-medium bg-white text-black border-black hover:bg-gray-100"
           >
             <LogOut className="w-4 h-4 mr-1" />
             Logout
