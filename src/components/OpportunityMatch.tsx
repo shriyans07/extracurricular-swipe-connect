@@ -100,7 +100,7 @@ export const OpportunityMatch: React.FC = () => {
                     <h1 className="text-4xl font-poppins font-black mb-2 text-black">
                         Opportunity Match
                     </h1>
-                    <p className="text-lg font-poppins font-semibold text-black">
+                    <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
                         Swipe RIGHT to save opportunities, left to skip.
                     </p>
                 </div>
