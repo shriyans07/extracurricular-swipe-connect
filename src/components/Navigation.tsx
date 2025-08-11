@@ -76,10 +76,7 @@ const Navigation = () => {
                 variant="outline"
                 size="sm"
                 onClick={handleLogout}
-                className="text-sm font-poppins font-medium bg-white border text-black"
-                style={{
-                    borderColor: ACCENT
-                }}
+                className="text-sm font-poppins font-medium bg-white border text-black border-black"
             >
                 <LogOut className="w-4 h-4 mr-1" />
                 Logout
