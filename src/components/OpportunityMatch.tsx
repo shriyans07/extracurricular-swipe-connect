@@ -97,10 +97,10 @@ export const OpportunityMatch: React.FC = () => {
             <div className="flex flex-col items-center justify-center p-4 min-h-[calc(100vh-80px)]">
                 {/* Header */}
                 <div className="mb-8 text-center">
-                    <h1 className="text-4xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
+                    <h1 className="text-4xl font-poppins font-black mb-2 text-black">
                         Opportunity Match
                     </h1>
-                    <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
+                    <p className="text-lg font-poppins font-semibold text-black">
                         Swipe RIGHT to save opportunities, left to skip.
                     </p>
                 </div>

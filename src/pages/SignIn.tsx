@@ -54,10 +54,10 @@ const SignIn = () => {
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f5f7fa' }}>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-poppins font-black mb-2" style={{ color: '#5b55f7' }}>
+          <CardTitle className="text-3xl font-poppins font-black mb-2 text-black">
             EC-AI
           </CardTitle>
-          <p className="text-lg font-poppins font-semibold" style={{ color: '#5b55f7' }}>
+          <p className="text-lg font-poppins font-semibold text-black">
             Sign In to Your Account
           </p>
         </CardHeader>
